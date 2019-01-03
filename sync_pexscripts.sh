@@ -6,7 +6,7 @@ curl -L -o ~/pexscripts/logreader.py https://www.dropbox.com/sh/t133qp94yu4ef78/
 
 # first time setup
 if [ ! -f ~/pexscripts/.sync_pexscripts ]; then
-    curl -L -o ~/pexscripts/pexsnap.py https://www.dropbox.com/sh/hgy7mvrebwply64/AACYptIUZT164S79DpzdOtWpa/pexsnap.py?dl=0
+    curl -L -o ~/pexscripts/pexsnap.py https://raw.githubusercontent.com/darrengoulden/pexip-log-tools/master/pexsnap.py
     echo 'Creating symlinks'
     ln -sf ~/pexscripts/confhistory.py /usr/local/bin/confhistory.py
     ln -sf ~/pexscripts/connectivity.py /usr/local/bin/connectivity.py
