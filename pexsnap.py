@@ -97,6 +97,7 @@ def parse_args(args=None):
     parser = argparse.ArgumentParser(description='Python variant of the Pexip Log Tools')
     parser.add_argument('-i', '--input', help='path containing the snapshot(s)')
     parser.add_argument('-o', '--output', help='path to extract the snapshot')
+    parser.add_argument('-s', '--skip', nargs='?', help='skip log processing')
     return parser.parse_args(args=args)
 
 def get_ordered_list_of_snaps(snapshot_path):
@@ -285,11 +286,13 @@ def main():
         if check_for_irpulse_events:
             if os.path.isfile(newdir + parsedlogdir + rectorstallingtext) and os.stat(newdir + parsedlogdir + rectorstallingtext).st_size != 0:
                 print ('-> Reactor stalls detected, see {}{}{} ({}KB)'.format(newdir, parsedlogdir, rectorstallingtext, str(os.stat(newdir + parsedlogdir + rectorstallingtext).st_size / 1024)))
-        if os.path.isfile(logr_path):
-            print ('Running logs through logreader')
-            run_lr((newdir + actuallogdir + support), newdir) # run LogReader report on current log files and pipe the result out to a text file
-        else:
-            print ('logreader not found, skipping..')
+        if not args.skip:
+            print(args.skip)
+            if os.path.isfile(logr_path):
+                print ('Running logs through logreader')
+                run_lr((newdir + actuallogdir + support), newdir) # run LogReader report on current log files and pipe the result out to a text file
+            else:
+                print ('logreader not found, skipping..')
         if os.path.isfile(dbsu_path):
             print ('Running database through dbsummary')
             run_script(newdir, dbsu_path, dbreport) # run dbsummary report on current database and pipe the result out to a text file
